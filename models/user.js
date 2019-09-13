@@ -15,7 +15,18 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    resetToken: String,
+    status: {
+        type: String,
+        default: 'I am new!'
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    },
+    resetToken: {
+        type: String,
+        default: undefined
+    },
     resetTokenExpiration: Date,
     authId: String,
     posts: [
