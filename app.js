@@ -27,10 +27,10 @@ app.use(
             if (!error.originalError){
                 return error
         }
-      const data = error.originalError.data
-      const message = error.message || 'An error occurrend.'
-      const code = error.originalError.code || 500
-      return { 
+        const data = error.originalError.data
+        const message = error.message || 'An error occurrend.'
+        const code = error.originalError.code || 500
+        return { 
           message: message, 
           status: code, 
           data: data 
