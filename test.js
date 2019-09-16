@@ -51,3 +51,11 @@ let to = obj.to ? obj.to : 'Prazan'
         }
         
         */
+
+
+// class Nesto {
+//     constructor() => {
+//     }
+
+    
+// }

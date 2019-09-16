@@ -3,20 +3,12 @@ import bcrypt from 'bcryptjs'
 import crypto from 'crypto'
 import uuidv4 from 'uuid/v4'
 import validator from 'validator'
-// import sgMail from '@sendgrid/mail'
 import User from '../models/user'
 import Post from '../models/post'
 import comment from '../models/comment'
 import auth from '../middleware/auth'
 import { verify } from 'crypto'
-
-
 import { sendConfrimMail, sendMail } from '../util/mailHandler'
-import mail from '@sendgrid/mail'
-
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-// sgMail.setApiKey('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')
-
 
 module.exports = {
     createUser: async ({ userInput }, req) => {
@@ -58,16 +50,12 @@ module.exports = {
                 posts: []
             })
             const createdUser = await user.save()
-            
-        
             const mail = {
-                to: 'bstanic16@raf.rs',
-                from: 'Stefan Zivic',
-                subject: 'Proba',
-                html: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png',
+                to: createdUser.email,
+                from: 'test@example.com',
+                subject: 's',
+                html: '<h1>sakjdlsjalkdjsakljdlksajdlj</h1>',
             };
-           
-
             sendConfrimMail(mail)
            
             return {
@@ -180,17 +168,14 @@ module.exports = {
         user.resetTokenExpiration = Date.now() + 3600000
         await user.save()
 
-        var mail = {
-            to: 'stefan.zivic.1997@gmail.com',
-            from: "TESTTTTTTTTTTTTT@demo.com",
-            subject: "Confrim Email",
-            html: `<div style="border: 1px solid blue">
-                        <h3 style="color: blue;"> Hello ${user.name} </h3>
-                        <p>Click this <a style="color: red;" href="http://localhost:8080/verify/${user.authId}">link</a> to verify.</p>
-                    </div>`
+        const mail = {
+            to: user.email,
+            from: 'test@example.com',
+            subject: 's',
+            html: `<a href="http://localhost:8080/verify/${user.authId}"><h1>Click</h1></a>`
         };
 
-        await sgMail.send(mail)
+        sendConfrimMail(mail)
 
         return true
     }
